@@ -9,7 +9,7 @@
     <packaging>pom</packaging>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>miniorder-product</module>
+        <module>web-app</module>
     </modules>
 
     <!-- 所有的springboot的工程都以spring父工程为父工程 -->
