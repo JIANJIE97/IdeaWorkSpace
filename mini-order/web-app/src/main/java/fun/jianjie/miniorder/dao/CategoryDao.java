@@ -16,7 +16,7 @@ public interface CategoryDao {
      * 查询所有分类信息
      * @return
      */
-    @Select("select * from category")
+    /*@Select("select * from category")
     @Results({
             @Result(id = true,property = "id", column = "id"),
             @Result(property = "name",column = "name"),
@@ -26,7 +26,7 @@ public interface CategoryDao {
                 )
             )
 
-    })
+    })*/
     public List<CategoryVo> findAll();
 
     /**
@@ -34,9 +34,9 @@ public interface CategoryDao {
      * @param id
      * @return
      */
-    @Select("select * from image where id = #{id}")
+    /*@Select("select * from image where id = #{id}")
     @Results({
             @Result(property = "url",column = "url")
-    })
+    })*/
     public ImageVo findImageById(Integer id);
 }

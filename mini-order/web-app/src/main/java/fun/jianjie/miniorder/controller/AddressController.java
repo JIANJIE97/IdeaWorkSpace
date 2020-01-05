@@ -74,9 +74,11 @@ public class AddressController {
         boolean flag = false;
         if(addressVo == null){
             //添加一条记录
+            System.out.println("添加一条记录");
             flag = addressService.saveAddress(address);
         }else{
             //不为空，更新记录
+            System.out.println("不为空，更新记录");
             flag = addressService.updateAddress(address);
         }
 

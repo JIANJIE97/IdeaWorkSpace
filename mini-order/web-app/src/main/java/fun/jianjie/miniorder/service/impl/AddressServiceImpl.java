@@ -4,6 +4,7 @@ import fun.jianjie.miniorder.dao.AddressDao;
 import fun.jianjie.miniorder.domain.UserAddress;
 import fun.jianjie.miniorder.service.AddressService;
 import fun.jianjie.miniorder.vo.AddressVo;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,7 +33,8 @@ public class AddressServiceImpl implements AddressService {
      */
     @Override
     @Transactional
-    public boolean saveAddress(UserAddress address) {
+    public boolean saveAddress(@Param("address") UserAddress address) {
+        System.out.println(address);
         Integer count = addressDao.saveAddress(address);
 
         return count > 0 ? true:false;
@@ -45,6 +47,7 @@ public class AddressServiceImpl implements AddressService {
     @Override
     @Transactional
     public boolean updateAddress(UserAddress address) {
+        System.out.println(address);
         Integer count = addressDao.updateAddress(address);
         return count > 0 ? true:false;
     }

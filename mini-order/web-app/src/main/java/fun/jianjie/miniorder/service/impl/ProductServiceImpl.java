@@ -48,11 +48,16 @@ public class ProductServiceImpl implements ProductService {
     public ProductVo findProductById(Integer id) {
         //为主图片添加路径前缀
         ProductVo productVo= productDao.findProductById(id);
+        System.out.println(productVo);
+        if(productVo == null){
+            throw new RuntimeException("获取到的商品数据为空");
+        }
         String URL = productVo.getMain_img_url();
         productVo.setMain_img_url(wxProperties.getImg_url_prefix()+URL);
 
         //为详细图片添加路径前缀
         List<DetailImageVo> imgs = productVo.getImgs();
+        System.out.println("imgs:"+imgs);
         for (DetailImageVo img : imgs) {
             ImageVo img_url_obj = img.getImg_url();
             String url = img_url_obj.getUrl();

@@ -20,7 +20,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param category_id
      * @return
      */
-    @Select("SELECT * FROM product WHERE category_id = #{category_id}")
+    //@Select("SELECT * FROM product WHERE category_id = #{category_id}")
     public List<Product> findProductByTypeId(Integer category_id);
 
     /**
@@ -28,7 +28,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param id
      * @return
      */
-    @Select("select * from product where id = #{id}")
+    /*@Select("select * from product where id = #{id}")
     @Results({
             @Result(property = "id",column = "id"),
             @Result(property = "imgs",column = "id",
@@ -42,7 +42,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
                             fetchType = FetchType.LAZY
                     )
             )
-    })
+    })*/
     public ProductVo findProductById(Integer id);
 
     /**
@@ -51,7 +51,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param p_id
      * @return
      */
-    @Select("select * from product_image where product_id = #{p_id}")
+    /*@Select("select * from product_image where product_id = #{p_id}")
     @Results({
             @Result(property = "id",column = "id"),
             @Result(property = "order",column = "order"),
@@ -60,7 +60,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
                         select = "fun.jianjie.miniorder.dao.ProductDao.findImageById"
                 )
             )
-    })
+    })*/
     public List<DetailImageVo> findImageByProductId(Integer p_id);
 
     /**
@@ -69,7 +69,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param pid
      * @return
      */
-    @Select("select * from product_property where product_id = #{p_id}")
+    /*@Select("select * from product_property where product_id = #{p_id}")*/
     public List<PropertiesVo> findPropertyProductId(Integer pid);
     /**
      * 附属查询SQL
@@ -77,10 +77,10 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param id
      * @return
      */
-    @Select("select * from image where id = #{id}")
+    /*@Select("select * from image where id = #{id}")
     @Results({
             @Result(property = "url",column = "url")
-    })
+    })*/
     public ImageVo findImageById(Integer id);
 
     /**
@@ -88,7 +88,7 @@ public interface ProductDao extends tk.mybatis.mapper.common.Mapper<Product>{
      * @param id
      * @return
      */
-    @Select("select stock from product where id = #{id}")
+    //@Select("select stock from product where id = #{id}")
     public Integer findStockById(Integer id);
 
 }

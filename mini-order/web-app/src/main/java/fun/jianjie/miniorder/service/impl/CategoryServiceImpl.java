@@ -26,6 +26,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public List<CategoryVo> findAll() {
         List<CategoryVo> categoryVos= categoryDao.findAll();
+        System.out.println(categoryVos);
+        if(categoryVos == null){
+            throw new RuntimeException("查询所有分类的结果为空");
+        }
         for (CategoryVo categoryVo : categoryVos) {
             ImageVo imageVo = categoryVo.getImg();
             StringBuilder stringBuilder = new StringBuilder();

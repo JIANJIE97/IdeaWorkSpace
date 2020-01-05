@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.jianjie.miniorder.dao.CategoryDao">
+
+    <resultMap id="categoryMap" type="fun.jianjie.miniorder.vo.CategoryVo" >
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="img" property="topic_img_id"/>
+        <association property="img" column="topic_img_id" javaType="fun.jianjie.miniorder.vo.ImageVo" >
+            <result property="url" column="url"></result>
+        </association>
+    </resultMap>
+
+
+    <!--查询所有分类信息-->
+    <select id="findAll" resultMap="categoryMap" >
+        select c.id,c.name,i.url from category c,image i where c.topic_img_id = i.id;
+    </select>
+
+    <!--根据图片id查询图片路径-->
+    <select id="findImageById" parameterType="Integer" resultType="fun.jianjie.miniorder.vo.ImageVo">
+        select * from image where id = #{id}
+    </select>
+</mapper>

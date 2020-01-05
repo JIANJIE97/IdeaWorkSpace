@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.jianjie.miniorder.dao.OrderProductDao">
+
+
+    <!--根据订单信息插入一条商品数据-->
+    <insert id="saveOrderProducts" parameterType="fun.jianjie.miniorder.domain.OrderProduct">
+        insert into
+          order_product
+          (order_id,product_id,count)
+        values (#{order_id},#{product_id},#{count})
+    </insert>
+
+
+    <!--批量插入订单商品数据-->
+    <insert id="saveOrderProductsList" parameterType="fun.jianjie.miniorder.domain.OrderProduct">
+          <foreach collection="products" item="product" separator=";">
+              insert into
+              order_product
+              (order_id,product_id,count)
+              values
+              (#{product.order_id},#{product.product_id},#{product.count})
+          </foreach>
+    </insert>
+</mapper>

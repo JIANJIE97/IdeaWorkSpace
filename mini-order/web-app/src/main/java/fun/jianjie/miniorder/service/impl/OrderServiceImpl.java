@@ -233,7 +233,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderResultVo createOrder(OrderSnapDTO orderSnapDTO) throws Exception {
         OrderResultVo orderResultVo = new OrderResultVo();
         Order order = new Order();
-        OrderProduct orderProduct = new OrderProduct();
+        OrderProduct orderProduct = null;
         order.setUser_id(this.uidTL.get());
         order.setOrder_no(OrderIDUtil.doInvoke());
         order.setTotal_price(orderSnapDTO.getOrderPrice());
@@ -265,11 +265,19 @@ public class OrderServiceImpl implements OrderService {
 
 
         //遍历订单商品插入订单项数据
+        ArrayList<OrderProduct> orderProducts = new ArrayList<>();
         for (OrderProductDTO product : this.orderProductsTL.get()) {
+            orderProduct= new OrderProduct();
             orderProduct.setOrder_id(oid);
             orderProduct.setCount(product.getCount());
             orderProduct.setProduct_id(product.getId());
-            orderProductService.saveOrderProducts(orderProduct);
+            orderProducts.add(orderProduct);
+            //orderProductService.saveOrderProducts(orderProduct);
+        }
+        System.out.println("生成订单商品表的集合"+orderProducts);
+        boolean flag = orderProductService.saveOrderProductsList(orderProducts);
+        if (flag ==false){
+            throw new RuntimeException("生成订单失败");
         }
 
         orderResultVo.setOrder_no(order.getOrder_no());

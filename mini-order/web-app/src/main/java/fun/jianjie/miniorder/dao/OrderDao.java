@@ -20,7 +20,7 @@ public interface OrderDao {
      * @param uid
      * @return
      */
-    @Select("select * from `order` where user_id = #{uid} order by create_time desc")
+    //@Select("select * from `order` where user_id = #{uid} order by create_time desc")
     public Page<OrderVo> findSummaryOrder(Integer uid);
 
     /**
@@ -29,7 +29,7 @@ public interface OrderDao {
      * @param oid
      * @return
      */
-    @Select("select * from `order` where user_id = #{uid} and id =#{oid}")
+    /*@Select("select * from `order` where user_id = #{uid} and id =#{oid}")
     @Results({
             @Result(property = "id",column = "id"),
             @Result(property = "snap_items",column = "id",
@@ -39,7 +39,7 @@ public interface OrderDao {
                     )),
             @Result(property = "snap_address",column = "user_id",
                     one = @One(select = "fun.jianjie.miniorder.dao.AddressDao.findAddressByUid"))
-    })
+    })*/
     public OrderVo findOrderByOid(@Param("uid") Integer uid, @Param("oid") Integer oid);
 
 
@@ -57,7 +57,7 @@ public interface OrderDao {
      * @param oid
      * @return
      */
-    @Select("SELECT p.id,op.count,p.price,p.name,p.main_img_url FROM order_product op,product p WHERE op.product_id = p.id AND op.order_id = #{oid}")
+    /*@Select("SELECT p.id,op.count,p.price,p.name,p.main_img_url FROM order_product op,product p WHERE op.product_id = p.id AND op.order_id = #{oid}")*/
     /*@Results({
             @Result(property = "id",column = ""),
             @Result(property = "count",column = ""),
@@ -73,7 +73,7 @@ public interface OrderDao {
      * @return
      */
 
-    @Insert("insert into `order` (order_no,user_id,create_time,total_price,snap_img,snap_name,total_count,snap_items,snap_address) values(#{order_no},#{user_id},#{create_time},#{total_price},#{snap_img},#{snap_name},#{total_count},#{snap_items},#{snap_address})")
-    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")
+    /*@Insert("insert into `order` (order_no,user_id,create_time,total_price,snap_img,snap_name,total_count,snap_items,snap_address) values(#{order_no},#{user_id},#{create_time},#{total_price},#{snap_img},#{snap_name},#{total_count},#{snap_items},#{snap_address})")
+    @Options(useGeneratedKeys=true, keyProperty="id", keyColumn="id")*/
     public int saveOrder(Order order);
 }

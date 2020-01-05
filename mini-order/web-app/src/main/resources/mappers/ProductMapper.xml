@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fun.jianjie.miniorder.dao.ProductDao">
+
+
+    <!--根据分类id查询商品-->
+    <select id="findProductByTypeId" parameterType="Integer" resultType="fun.jianjie.miniorder.domain.Product">
+      SELECT * FROM product WHERE category_id = #{category_id}
+    </select>
+
+
+    <!--根据商品id查询商品库存-->
+    <select id="findStockById" parameterType="Integer" resultType="Integer">
+        select stock from product where id = #{id}
+    </select>
+
+    <!--根据商品id查询详情商品信息包含一对多和一对一查询-->
+    <resultMap id="productMap" type="fun.jianjie.miniorder.vo.ProductVo">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="price" property="price"/>
+        <result column="stock" property="stock"/>
+        <result column="main_img_url" property="main_img_url"/>
+        <result column="summary" property="summary"/>
+        <result column="img_id" property="img_id"/>
+        <collection property="imgs" column="id" ofType="fun.jianjie.miniorder.vo.DetailImageVo" select="findImageByProductId" />
+        <collection property="properties" column="id" ofType="fun.jianjie.miniorder.vo.PropertiesVo" select="findPropertyProductId" />
+    </resultMap>
+    <select id="findProductById" parameterType="Integer" resultMap="productMap">
+        select
+          p.id,
+          p.name,
+          p.price,
+          p.stock,
+          p.main_img_url,
+          p.summary,
+          p.img_id
+        from
+          product p
+        where
+          p.id = #{id}
+    </select>
+
+
+    <!--根据商品id获取多个商品详情图片-->
+    <resultMap id="ImagesMap" type="fun.jianjie.miniorder.vo.DetailImageVo">
+        <id column="pi_id" property="id" />
+        <result column="order" property="order"/>
+        <association property="img_url" column="pi_id" javaType="fun.jianjie.miniorder.vo.ImageVo" select="findImageById"/>
+    </resultMap>
+    <select id="findImageByProductId" parameterType="Integer" resultMap="ImagesMap">
+        select
+          pi.img_id pi_id,pi.order
+        from
+          product_image as pi
+        where
+          product_id = #{id}
+    </select>
+
+    <!--根据图片id查询图片路径-->
+    <select id="findImageById" parameterType="Integer" resultType="fun.jianjie.miniorder.vo.ImageVo">
+      select
+        url
+      from
+        image
+      where
+        id = #{pi_id};
+    </select>
+
+
+    <!--根据商品id查询商品详情的属性信息-->
+    <resultMap id="propertyMap" type="fun.jianjie.miniorder.vo.PropertiesVo">
+        <id column="pp_id" property="id" />
+        <result column="pp_name" property="name" />
+        <result column="pp_detail" property="detail" />
+        <result column="pp_delete_time" property="delete_time" />
+        <result column="pp_update_time" property="update_time" />
+        <result column="p_id" property="product_id" />
+    </resultMap>
+    <select id="findPropertyProductId" parameterType="Integer" resultMap="propertyMap">
+      select
+        pp.id as pp_id,
+        pp.name as pp_name,
+        pp.detail as pp_detail,
+        pp.delete_time as pp_delete_time,
+        pp.update_time as pp_update_time,
+        p.id as p_id
+      from
+        product_property pp,
+        product p
+      where
+        product_id = #{id} AND
+        p.id = pp.product_id
+    </select>
+
+</mapper>

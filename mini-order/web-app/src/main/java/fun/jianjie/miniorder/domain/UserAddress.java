@@ -2,7 +2,9 @@ package fun.jianjie.miniorder.domain;
 
 import java.io.Serializable;
 
+
 public class UserAddress implements Serializable {
+    private Integer id;
     private String name;
     private String mobile;
     private String province;
@@ -12,6 +14,31 @@ public class UserAddress implements Serializable {
     private Integer user_id;
     private Integer delete_time;
     private Integer update_time;
+
+
+    @Override
+    public String toString() {
+        return "UserAddress{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", province='" + province + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", detail='" + detail + '\'' +
+                ", user_id=" + user_id +
+                ", delete_time=" + delete_time +
+                ", update_time=" + update_time +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;
@@ -83,20 +110,5 @@ public class UserAddress implements Serializable {
 
     public void setUpdate_time(Integer update_time) {
         this.update_time = update_time;
-    }
-
-    @Override
-    public String toString() {
-        return "UserAddress{" +
-                "name='" + name + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", province='" + province + '\'' +
-                ", city='" + city + '\'' +
-                ", country='" + country + '\'' +
-                ", detail='" + detail + '\'' +
-                ", user_id=" + user_id +
-                ", delete_time=" + delete_time +
-                ", update_time=" + update_time +
-                '}';
     }
 }
